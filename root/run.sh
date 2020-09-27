@@ -22,11 +22,8 @@ done
 # Update postfix config
 /etc/postfix/system/config_postfix
 /etc/postfix/system/update_postmaps
-
-# Enable submission port
 sed -i 's/^#submission/submission/g' /etc/postfix/master.cf
-
-# Configure milters
+postconf -e maillog_file="/dev/stdout"
 postconf -e smtpd_milters="$SMTPD_MILTERS"
 postconf -e non_smtpd_milters="\$smtpd_milters"
 postconf -e milter_default_action="accept"

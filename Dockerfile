@@ -7,7 +7,6 @@ RUN zypper in -y postfix &&\
 
 # Files
 COPY ./root /
-RUN chmod +x /run.sh
 
 # Ports
 EXPOSE 25 587

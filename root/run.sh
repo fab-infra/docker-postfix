@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Set default environment
 SMTPD_LISTEN_REMOTE="${SMTPD_LISTEN_REMOTE:-yes}"
@@ -21,8 +21,8 @@ for FILE in /etc/sysconfig/mail /etc/sysconfig/postfix; do
 done
 
 # Update postfix config
-/etc/postfix/system/config_postfix
-/etc/postfix/system/update_postmaps
+/usr/lib/postfix/systemd/config_postfix
+/usr/lib/postfix/systemd/update_postmaps
 sed -i 's/^#submission/submission/g' /etc/postfix/master.cf
 postconf -e maillog_file="/dev/stdout"
 postconf -e smtpd_milters="$SMTPD_MILTERS"

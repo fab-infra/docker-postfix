@@ -12,12 +12,12 @@ POSTFIX_MYNETWORKS="${POSTFIX_MYNETWORKS:-}"
 
 # Update sysconfig from environment variables
 for FILE in /etc/sysconfig/mail /etc/sysconfig/postfix; do
-    grep '^[^#].*=' "$FILE" | while IFS='=' read KEY VALUE; do
-        if [ -n "${!KEY+x}" ]; then
-            echo "Updating $FILE: $KEY=${!KEY}"
-            sed -i "s#^$KEY=.*\$#$KEY=\"${!KEY}\"#g" "$FILE"
-        fi
-    done
+	grep '^[^#].*=' "$FILE" | while IFS='=' read KEY VALUE; do
+		if [ -n "${!KEY+x}" ]; then
+			echo "Updating $FILE: $KEY=${!KEY}"
+			sed -i "s#^$KEY=.*\$#$KEY=\"${!KEY}\"#g" "$FILE"
+		fi
+	done
 done
 
 # Update postfix config
@@ -30,7 +30,7 @@ postconf -e non_smtpd_milters="\$smtpd_milters"
 postconf -e milter_default_action="accept"
 postconf -e internal_mail_filter_classes="bounce"
 if [ -n "$POSTFIX_MYNETWORKS" ]; then
-    postconf -e mynetworks="$POSTFIX_MYNETWORKS"
+	postconf -e mynetworks="$POSTFIX_MYNETWORKS"
 fi
 
 # Start in foreground
